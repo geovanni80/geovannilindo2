@@ -6,38 +6,69 @@ const textoResultado = document.querySelector(".texto-resultado");
 
 const perguntas = [
     {
-        enunciado: "Assim que saiu da escola você se depara com uma nova tecnologia, um chat que consegue responder todas as dúvidas que uma pessoa pode ter, ele também gera imagens e áudios hiper-realistas. Qual o primeiro pensamento?",
+        enunciado: "Lucas é um jovem cientista brasileiro apaixonado por biotecnologia. Ele trabalha em um instituto de pesquisa local, mas enfrenta dificuldades devido à falta de recursos e oportunidades de crescimento. Certo dia, ele recebe um e-mail inesperado de uma universidade de prestígio nos Estados Unidos, oferecendo uma bolsa de estudos integral para um programa de pós-doutorado.",
         alternativas: [
-            "Isso é assustador!",
-            "Isso é maravilhoso!"
+            "Aceitar a oferta imediatamente.",
+            "Pedir conselhos a amigos e familiares."
         ]
     },
     {
-        enunciado: "Com a descoberta desta tecnologia, chamada Inteligência Artificial (IA), uma professora de tecnologia da escola decidiu fazer uma sequência de aulas sobre esta tecnologia. No fim de uma aula ela pede que você escreva um trabalho sobre o uso de IA em sala de aula. Qual atitude você toma?",
+        enunciado: "Lucas decide seguir em frente com a bolsa. Ele começa a preparar sua mudança, o que envolve resolver questões pessoais e profissionais no Brasil.",
         alternativas: [
-            "Utiliza uma ferramenta de busca na internet que utiliza IA para que ela ajude a encontrar informações relevantes para o trabalho e explique numa linguagem que facilite o entendimento.",
-            "Escreve o trabalho com base nas conversas que teve com colegas, algumas pesquisas na internet e conhecimentos próprios sobre o tema.",
+            "Passar tempo com amigos e familiares.",
+            "Focar em aprender inglês intensivamente."
         ]
     },
     {
-        enunciado: "Após a elaboração do trabalho, a professora realizou um debate entre a turma para entender como foi realizada a pesquisa e escrita. Nessa conversa também foi levantado um ponto muito importante: como a IA impacta o trabalho do futuro. Nesse debate, como você se posiciona?",
+        enunciado: "Lucas chega aos Estados Unidos e começa a se adaptar à nova vida. Ele enfrenta desafios culturais e acadêmicos enquanto tenta se destacar em seu programa."
+        ,
         alternativas: [
-            "Defende a ideia de que a IA pode criar novas oportunidades de emprego e melhorar habilidades humanas.",
-            "Me preocupo com as pessoas que perderão seus empregos para máquinas e defendem a importância de proteger os trabalhadores."
+            "Focar exclusivamente nos estudos e pesquisa.",
+            "Procurar apoio em grupos de estudantes internacionais."
         ]
     },
     {
-        enunciado: "Ao final da discussão, você precisou criar uma imagem no computador que representasse o que pensa sobre IA. E agora?",
+        enunciado: "Após concluir seu programa de pós-doutorado com sucesso, Lucas enfrenta uma decisão difícil sobre seu futuro. Ele recebe uma oferta de emprego nos Estados Unidos, mas também tem a opção de retornar ao Brasil com sua nova experiência e conhecimentos.",
         alternativas: [
-            "Criar uma imagem utilizando uma plataforma de design como o Paint.",
-            "Criar uma imagem utilizando um gerador de imagem de IA."
+            "Aceitar a oferta de emprego nos Estados Unidos.",
+            "Retornar ao Brasil para contribuir com o desenvolvimento local."
         ]
-    },
-    {
-        enunciado: "Você tem um trabalho em grupo de biologia para entregar na semana seguinte, o andamento do trabalho está um pouco atrasado e uma pessoa do seu grupo decidiu fazer com ajuda de uma IA. O problema é que o trabalho está totalmente igual ao do chat. O que você faz?",
-        alternativas: [
-           "Escrever comandos para o chat é uma forma de contribuir com o trabalho, por isso não é um problema utilizar o texto inteiro.",
-            "O chat pode ser uma tecnologia muito avançada, mas é preciso manter a atenção pois toda máquina erra, por isso revisar o trabalho e contribuir com as perspectivas pessoais é essencial."
-        ]
-    },
+    }
 ];
+
+let atual = 0;
+
+function mostraPergunta() {
+    caixaPerguntas.textContent = perguntas[atual].enunciado;
+    mostraAlternativas();
+}
+
+function mostraAlternativas() {
+    caixaAlternativas.innerHTML = ''; // Limpar alternativas anteriores
+    perguntas[atual].alternativas.forEach(alternativa => {
+        const botaoAlternativa = document.createElement("button");
+        botaoAlternativa.textContent = alternativa;
+        botaoAlternativa.addEventListener("click", () => {
+            proximaPergunta();
+        });
+        caixaAlternativas.appendChild(botaoAlternativa);
+    });
+}
+
+function proximaPergunta() {
+    if (atual < perguntas.length - 1) {
+        atual++;
+        mostraPergunta();
+    } else {
+        mostraResultado();
+    }
+}
+
+function mostraResultado() {
+    caixaPerguntas.style.display = 'none';
+    caixaAlternativas.style.display = 'none';
+    textoResultado.textContent = "Obrigado por participar!";
+    caixaResultado.style.display = 'block';
+}
+
+mostraPergunta();
